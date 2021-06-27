@@ -4,48 +4,56 @@
 
 using namespace std;
 
-Game *Game::_instance = nullptr;
+std::unique_ptr<Game> Game::_instance;
 
-Game::Game()
+Game::Game(int width, int height)
 {
 	Window * pWindow = Window::Instance();
-	pWindow->resize(640,480);
+	pWindow->resize(width,height);
 }
 
-Game::~Game()
-{
-	free(_pScene);
+Game::~Game() {
+    while (!_spriteSheets.empty()) {
+        auto it = _spriteSheets.begin();
+        delete it->second;
+        _spriteSheets.erase( it );
+    }
 }
-Game* Game::Instance()
+
+unique_ptr<Game> & Game::Instance()
 {
 	if (_instance == nullptr)
 	{
-		_instance = new Game;
+        // If no instance of game exists, create a new instance
+		_instance = std::unique_ptr<Game>(new Game());
 	}
+	// Else
 	return _instance;
 }
 
 void Game::run()
 {
-	_pScene = new GraphicalScene();
-	_pScene->addPlan(2.0);
-    _pScene->addPlan(1.0);
-	const char * file = "../sprites/MegamanX_Zero_spritesheet_green.png";
-	Spritesheet * spritesheet = loadSpritesheet(file);
-	Rectangle rec(8,14,38,44);
-	GraphicalObject g1(spritesheet,rec,3,0,0);
-	GraphicalObject g2(spritesheet,rec,3,200,0);
+    // Add plans to the scene
+	_scene.addPlan(2.0);
+    _scene.addPlan(1.0);
 
+    // Load and add the sprite sheets to the scene
+	const char * file = "../sprites/MegamanX_Zero_spritesheet_green.png";
+	SpriteSheet *pSpriteSheet = loadSpriteSheet(file);
+	Rectangle rec(8,14,38,44);
+	GraphicalObject g1(pSpriteSheet, rec, 3, 0, 0);
+	GraphicalObject g2(pSpriteSheet, rec, 3, 200, 0);
 	Hitbox hitbox(8,14,38,44);
 
-	Character * character = new Character(g1,hitbox);
-	Entity * entity = new Entity(g2);
-	_pScene->addObjectToPlan(character->pGraphicalObject(), 0);
-	_pScene->addObjectToPlan(entity->pGraphicalObject(), 1);
+	Character *pCharacter = new Character(g1,hitbox);
+	Entity *pEntity = new Entity(g2);
+	_scene.addObjectToPlan(pCharacter->graphicalObject(), 0);
+	_scene.addObjectToPlan(pEntity->graphicalObject(), 1);
+
+	// Game loop. Runs until the user presses ESCAPE.
 	while(!_actions[Actions::Quit])
 	{
-//	    std::cout << "_actions[Actions::Quit] = " << to_string(_actions[Actions::Quit]) << std::endl;
-		_pScene->displayGame();
+		_scene.displayGame();
 		_controllersManager.processEvents(&_actions);
 		// Iterate over possible actions
         for (pair<const Actions::Action, bool> action : _actions.actions) {
@@ -56,32 +64,40 @@ void Game::run()
                 case Actions::Confirm:
                     break;
                 case Actions::Up:
-                    character->move(Up);
+                    pCharacter->move(Up);
                     break;
                 case Actions::Down:
-                    character->move(Down);
+                    pCharacter->move(Down);
                     break;
                 case Actions::Left:
-                    character->move(Left);
+                    pCharacter->move(Left);
                     break;
                 case Actions::Right:
-                    character->move(Right);
+                    pCharacter->move(Right);
                     break;
+                case Actions::Enter:
+                    delete pEntity;
+                    pEntity = nullptr;
             }
         }
 	}
 }
 
-Spritesheet *Game::loadSpritesheet(const char *file)
+SpriteSheet* Game::loadSpriteSheet(std::string const &fileName)
 {
-	map<const char *,Spritesheet *>::iterator i = _spritesheets.find(file);
-	if(i == _spritesheets.end())
+    // Search in memory the sprite sheet with given name
+	auto i = _spriteSheets.find(fileName);
+
+	// If the given sprite sheet was not found in memory, load the fileName
+	if(i == _spriteSheets.end())
 	{
-		//If the file is not loaded yet, load it in the map
-		Window *pWindow = Window::Instance();
-		Spritesheet * pSpritesheet = new Spritesheet(pWindow->pRenderer(), file);
-		_spritesheets.insert(i, pair<const char *,Spritesheet *>(file,pSpritesheet));
-		return pSpritesheet;
+		// Load the sprite sheet
+		SpriteSheet *pSpriteSheet = new SpriteSheet(Window::Instance()->pRenderer(), fileName);
+		// Insert the sprite sheet into the map
+		_spriteSheets.insert(i, pair<std::string, SpriteSheet*>(fileName, pSpriteSheet));
+		return pSpriteSheet;
 	}
+
+	// Else, return the one that was found
 	return i->second;
 }

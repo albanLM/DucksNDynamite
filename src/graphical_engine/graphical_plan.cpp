@@ -15,14 +15,19 @@ void GraphicalPlan::display()
 	Window * pWindow = Window::Instance();
 
 	SDL_Rect spriteRect;
-	Spritesheet * pSpritesheet;
+	SpriteSheet * pSpritesheet;
 	float sizeCoef, x, y;
 	SDL_RendererFlip flip;
 
 	for (std::vector<GraphicalObject *>::iterator i = _objects.begin() ; i != _objects.end(); i++)
 	{
-		spriteRect = (*i)->spriteRect().toSdlRect();
+		// If the graphical object doesn't exist anymore, remove it from the list
+	    if (*i == nullptr) {
+	        i = _objects.erase(i)--;
+            continue;
+	    }
 		pSpritesheet = (*i)->pSpritesheet();
+		spriteRect = (*i)->spriteRect().toSdlRect();
 		sizeCoef = (*i)->sizeCoef();
 		x = (*i)->x();
 		y = (*i)->y();
@@ -40,4 +45,12 @@ void GraphicalPlan::display()
 void GraphicalPlan::setScrollingSpeed(float scrollingSpeed)
 {
     _scrollingSpeed = scrollingSpeed;
+}
+
+GraphicalPlan::~GraphicalPlan() {
+    while (!_objects.empty()) {
+        auto it = _objects.begin();
+        delete *it;
+        _objects.erase( it );
+    }
 }

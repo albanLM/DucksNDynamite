@@ -10,9 +10,10 @@
 class GraphicalPlan
 {
 public:
-	GraphicalPlan(float scrollingSpeed);
+	explicit GraphicalPlan(float scrollingSpeed);
+	~GraphicalPlan();
 
-	void addObject(GraphicalObject * pObject);
+    void addObject(GraphicalObject * pObject);
 	void display();
 
 	void setScrollingSpeed(float scrollingSpeed);

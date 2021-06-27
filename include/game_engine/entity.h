@@ -8,7 +8,7 @@ class Entity
 public:
 	Entity(GraphicalObject graphicalObject);
 
-	GraphicalObject * pGraphicalObject();
+	GraphicalObject * graphicalObject();
 
 protected:
 	GraphicalObject _graphicalObject;

@@ -5,14 +5,18 @@
 #include "rectangle.h"
 #include "window.h"
 
+/**
+ * Graphical representation of an entity.
+ * Contains a position on the canvas, a sprite sheet, and a size coefficient.
+ */
 class GraphicalObject
 {
 public:
-	GraphicalObject(Spritesheet* spritesheet, Rectangle spriteRect, float sizeCoef, float x, float y, SDL_RendererFlip flip);
-	GraphicalObject(Spritesheet* spritesheet, Rectangle spriteRect, float sizeCoef, float x, float y);
+	GraphicalObject(SpriteSheet* spritesheet, Rectangle spriteRect, float sizeCoef, float x, float y, SDL_RendererFlip flip);
+	GraphicalObject(SpriteSheet* spritesheet, Rectangle spriteRect, float sizeCoef, float x, float y);
 
 	Rectangle spriteRect() const;
-	Spritesheet *pSpritesheet() const;
+	SpriteSheet *pSpritesheet() const;
 	float sizeCoef() const;
 	float x() const;
 	float y() const;
@@ -26,7 +30,7 @@ public:
 	void translate(float x, float y);
 
 private:
-	Spritesheet * _pSpritesheet;
+	SpriteSheet * _pSpritesheet;
 	Rectangle _spriteRect;
 	float _sizeCoef;
 	float _x;

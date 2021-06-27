@@ -23,6 +23,9 @@ void KeyboardController::processEvent(SDL_Event event, Actions * pActions)
                 case SDLK_d:
                     (*pActions)[Actions::Right] = true;
                     break;
+                case SDLK_RETURN:
+                    (*pActions)[Actions::Enter] = true;
+                    break;
                 default:
                     break;
             }
@@ -46,6 +49,9 @@ void KeyboardController::processEvent(SDL_Event event, Actions * pActions)
                     break;
                 case SDLK_d:
                     (*pActions)[Actions::Right] = false;
+                    break;
+                case SDLK_RETURN:
+                    (*pActions)[Actions::Enter] = false;
                     break;
                 default:
                     break;

@@ -1,13 +1,13 @@
 #include "graphical_object.h"
 
-GraphicalObject::GraphicalObject(Spritesheet *spritesheet, Rectangle spriteRect, float sizeCoef,
+GraphicalObject::GraphicalObject(SpriteSheet *spritesheet, Rectangle spriteRect, float sizeCoef,
                                  float x, float y, SDL_RendererFlip flip):
     _pSpritesheet(spritesheet), _spriteRect(spriteRect), _sizeCoef(sizeCoef), _x(x), _y(y), _flip(flip)
 {
 
 }
 
-GraphicalObject::GraphicalObject(Spritesheet *spritesheet, Rectangle spriteRect, float sizeCoef, float x, float y):
+GraphicalObject::GraphicalObject(SpriteSheet *spritesheet, Rectangle spriteRect, float sizeCoef, float x, float y):
     GraphicalObject(spritesheet, spriteRect, sizeCoef, x, y, SDL_FLIP_NONE)
 {
 }
@@ -17,7 +17,7 @@ Rectangle GraphicalObject::spriteRect() const
 	return _spriteRect;
 }
 
-Spritesheet *GraphicalObject::pSpritesheet() const
+SpriteSheet *GraphicalObject::pSpritesheet() const
 {
 	return _pSpritesheet;
 }

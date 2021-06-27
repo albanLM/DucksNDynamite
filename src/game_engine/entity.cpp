@@ -4,7 +4,7 @@ Entity::Entity(GraphicalObject graphicalObject):_graphicalObject(graphicalObject
 {
 }
 
-GraphicalObject *Entity::pGraphicalObject()
+GraphicalObject *Entity::graphicalObject()
 {
 	return &_graphicalObject;
 }

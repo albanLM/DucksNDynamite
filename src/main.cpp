@@ -6,11 +6,10 @@
 int main()
 {
 	Window * pWindow = Window::Instance();
-	Game * pGame = Game::Instance();
+	std::unique_ptr<Game> &pGame = Game::Instance();
 
 	pGame->run();
 
 	free(pWindow);
-	free(pGame);
 	return 0;
 }

@@ -12,15 +12,17 @@ class Actions
             Up,
             Down,
             Left,
-            Right
+            Right,
+            Enter
         };
         std::map<Action, bool> actions {
             {Quit,false},
-            { Confirm, false},
-            { Up, false},
-            { Down, false},
-            { Left, false},
-            { Right, false}
+            {Confirm, false},
+            {Up, false},
+            {Down, false},
+            {Left, false},
+            {Right, false},
+            {Enter, false}
         };
 
         Actions() = default;

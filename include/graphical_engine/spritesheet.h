@@ -3,21 +3,27 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <string>
 
-class Spritesheet
+/**
+ * Represent a sprite sheet object.
+ * Sprite sheets are loaded from the filesystem.
+ */
+class SpriteSheet
 {
 public:
-	Spritesheet(SDL_Renderer *pRenderer, const char *file,
-	            Uint8 backgroundRed,
-	            Uint8 backgroundGreen,
-	            Uint8 backgroundBlue);
-	Spritesheet(SDL_Renderer *pRenderer, const char *file);
-	~Spritesheet();
+    SpriteSheet(SpriteSheet const &spriteSheet);
+	SpriteSheet(SDL_Renderer *pRenderer, std::string const &file,
+                Uint8 backgroundRed,
+                Uint8 backgroundGreen,
+                Uint8 backgroundBlue);
+	SpriteSheet(SDL_Renderer *pRenderer, std::string const &file);
+	~SpriteSheet();
 
 	SDL_Texture *pTexture() const;
 
 private:
-	const char *_file;
+	std::string _file;
 	SDL_Surface * _pImage;
 	Uint32 _backgroundColor;
 	SDL_Texture * _pTexture;
