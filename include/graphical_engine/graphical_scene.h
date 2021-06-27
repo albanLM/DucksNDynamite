@@ -5,8 +5,8 @@
 #include <iostream>
 #include <SDL2/SDL.h>
 
-#include "graphicalplan.h"
-#include "graphicalobject.h"
+#include "graphical_plan.h"
+#include "graphical_object.h"
 
 class GraphicalScene
 {

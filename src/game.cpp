@@ -1,4 +1,6 @@
 #include "game.h"
+#include "actions.h"
+#include <iostream>
 
 using namespace std;
 
@@ -26,21 +28,47 @@ Game* Game::Instance()
 void Game::run()
 {
 	_pScene = new GraphicalScene();
-	_pScene->addPlan(1.0);
-	const char * file = "/home/william/Documents/Projet JV/Sprites/MegamanX_Zero_spritesheet_green.png";
+	_pScene->addPlan(2.0);
+    _pScene->addPlan(1.0);
+	const char * file = "../sprites/MegamanX_Zero_spritesheet_green.png";
 	Spritesheet * spritesheet = loadSpritesheet(file);
 	Rectangle rec(8,14,38,44);
-	GraphicalObject g1(spritesheet,rec,5,0,0);
-	GraphicalObject g2(spritesheet,rec,5,200,0);
+	GraphicalObject g1(spritesheet,rec,3,0,0);
+	GraphicalObject g2(spritesheet,rec,3,200,0);
 
-	Entity * e1 = new Entity(g1);
-	Entity * e2 = new Entity(g2);
-	_pScene->addObjectToPlan(e1->pGraphicalObject(), 0);
-	_pScene->addObjectToPlan(e2->pGraphicalObject(), 0);
-	while(!_actions.quitGame())
+	Hitbox hitbox(8,14,38,44);
+
+	Character * character = new Character(g1,hitbox);
+	Entity * entity = new Entity(g2);
+	_pScene->addObjectToPlan(character->pGraphicalObject(), 0);
+	_pScene->addObjectToPlan(entity->pGraphicalObject(), 1);
+	while(!_actions[Actions::Quit])
 	{
+//	    std::cout << "_actions[Actions::Quit] = " << to_string(_actions[Actions::Quit]) << std::endl;
 		_pScene->displayGame();
 		_controllersManager.processEvents(&_actions);
+		// Iterate over possible actions
+        for (pair<const Actions::Action, bool> action : _actions.actions) {
+            // If action is no activated, skip
+            if (!action.second) continue;
+            // Else, perform the corresponding action
+            switch (action.first) {
+                case Actions::Confirm:
+                    break;
+                case Actions::Up:
+                    character->move(Up);
+                    break;
+                case Actions::Down:
+                    character->move(Down);
+                    break;
+                case Actions::Left:
+                    character->move(Left);
+                    break;
+                case Actions::Right:
+                    character->move(Right);
+                    break;
+            }
+        }
 	}
 }
 

@@ -3,8 +3,8 @@
 
 #include <SDL2/SDL.h>
 
-#include "windowcontroller.h"
-#include "keyboardcontroller.h"
+#include "window_controller.h"
+#include "keyboard_controller.h"
 #include "actions.h"
 
 class ControllersManager

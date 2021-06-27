@@ -3,12 +3,12 @@
 
 #include "entity.h"
 #include "hitbox.h"
-#include "GraphicalEngine/graphicalobject.h"
+#include "graphical_object.h"
 
 class TangibleEntity : public Entity
 {
 public:
-	TangibleEntity(GraphicalObject graphicalObject);
+	TangibleEntity(GraphicalObject graphicalObject, Hitbox hitbox);
 
 	Hitbox hitbox() const;
 

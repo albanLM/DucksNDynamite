@@ -4,28 +4,30 @@ project(DucksNDynamite)
 set(CMAKE_CXX_STANDARD 20)
 
 add_executable(DucksNDynamite
-        src/Controllers/actions.cpp
-        src/Controllers/controller.cpp
-        src/Controllers/controllersmanager.cpp
-        src/Controllers/keyboardcontroller.cpp
-        src/Controllers/windowcontroller.cpp
-        src/GameEngine/entitiesmanager.cpp
-        src/GameEngine/entity.cpp
-        src/GameEngine/hitbox.cpp
-        src/GameEngine/tangibleentity.cpp
-        src/GraphicalEngine/graphicalobject.cpp
-        src/GraphicalEngine/graphicalplan.cpp
-        src/GraphicalEngine/graphicalscene.cpp
-        src/GraphicalEngine/spritesheet.cpp
-        src/GraphicalEngine/window.cpp
+        src/controllers/actions.cpp
+        src/controllers/controller.cpp
+        src/controllers/controllers_manager.cpp
+        src/controllers/keyboard_controller.cpp
+        src/controllers/window_controller.cpp
+        src/game_engine/entities_manager.cpp
+        src/game_engine/entity.cpp
+        src/game_engine/hitbox.cpp
+        src/game_engine/tangible_entity.cpp
+        src/graphical_engine/graphical_object.cpp
+        src/graphical_engine/graphical_plan.cpp
+        src/graphical_engine/graphical_scene.cpp
+        src/graphical_engine/spritesheet.cpp
+        src/graphical_engine/window.cpp
         src/game.cpp
         src/main.cpp
-        src/rectangle.cpp)
+        src/rectangle.cpp src/game_engine/tangible_entities/character.cpp
+        include/game_engine/tangible_entities/character.h)
 
 target_include_directories(DucksNDynamite PRIVATE include/)
-target_include_directories(DucksNDynamite PRIVATE include/Controllers)
-target_include_directories(DucksNDynamite PRIVATE include/GameEngine)
-target_include_directories(DucksNDynamite PRIVATE include/GraphicalEngine)
+target_include_directories(DucksNDynamite PRIVATE include/controllers)
+target_include_directories(DucksNDynamite PRIVATE include/game_engine)
+target_include_directories(DucksNDynamite PRIVATE include/graphical_engine)
+target_include_directories(DucksNDynamite PRIVATE include/game_engine/tangible_entities)
 
 ### Dependencies
 ## Add SDL2

@@ -23,6 +23,8 @@ public:
 	void setCoordinates(float x, float y);
 	void setFlip(const SDL_RendererFlip &flip);
 
+	void translate(float x, float y);
+
 private:
 	Spritesheet * _pSpritesheet;
 	Rectangle _spriteRect;

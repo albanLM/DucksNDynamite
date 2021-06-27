@@ -1,4 +1,4 @@
-#include "entitiesmanager.h"
+#include "entities_manager.h"
 
 EntitiesManager::EntitiesManager()
 {

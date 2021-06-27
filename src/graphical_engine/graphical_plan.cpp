@@ -1,4 +1,4 @@
-#include "graphicalplan.h"
+#include "graphical_plan.h"
 
 GraphicalPlan::GraphicalPlan(float scrollingSpeed): _scrollingSpeed(scrollingSpeed)
 {

@@ -4,7 +4,7 @@
 #include <vector>
 #include <iostream>
 
-#include "graphicalobject.h"
+#include "graphical_object.h"
 #include "window.h"
 
 class GraphicalPlan

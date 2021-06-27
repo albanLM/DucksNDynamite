@@ -1,7 +1,7 @@
 #ifndef ENTITY_H
 #define ENTITY_H
 
-#include "graphicalobject.h"
+#include "graphical_object.h"
 
 class Entity
 {

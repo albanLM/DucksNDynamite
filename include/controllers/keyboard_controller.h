@@ -6,7 +6,7 @@
 class KeyboardController : public Controller
 {
 public:
-	KeyboardController();
+	KeyboardController() = default;
 	void processEvent(SDL_Event event, Actions * pActions);
 };
 

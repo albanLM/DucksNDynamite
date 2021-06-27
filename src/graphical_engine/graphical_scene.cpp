@@ -1,4 +1,4 @@
-#include "graphicalscene.h"
+#include "graphical_scene.h"
 
 GraphicalScene::GraphicalScene()
 {
@@ -7,7 +7,7 @@ GraphicalScene::GraphicalScene()
 
 GraphicalScene::~GraphicalScene()
 {
-	for (std::vector<GraphicalPlan *>::reverse_iterator i = _plans.rbegin() ; i != _plans.rend(); i++)
+	for (auto i = _plans.rbegin() ; i != _plans.rend(); i++)
 	{
 		delete *i;
 	}
@@ -17,7 +17,7 @@ void GraphicalScene::displayGame()
 {
 	Window* pWindow = Window::Instance();
 	SDL_RenderClear(pWindow->pRenderer());
-	for (std::vector<GraphicalPlan *>::reverse_iterator i = _plans.rbegin() ; i != _plans.rend(); i++)
+	for (auto i = _plans.rbegin() ; i != _plans.rend(); i++)
 	{
 		(*i)->display();
 	}

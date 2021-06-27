@@ -5,28 +5,29 @@
 #include <map>
 #include <SDL2/SDL.h>
 
-#include "GraphicalEngine/graphicalscene.h"
-#include "GraphicalEngine/window.h"
-#include "Controllers/controllersmanager.h"
-#include "Controllers/actions.h"
-#include "GameEngine/entity.h"
+#include "graphical_scene.h"
+#include "window.h"
+#include "controllers_manager.h"
+#include "actions.h"
+#include "entity.h"
+#include "character.h"
 
 class Game
 {
-public:
-	~Game();
-	static Game* Instance();
-	void run();
+    public:
+        ~Game();
+        static Game* Instance();
+        void run();
 
-private:
-	Game();
-	Spritesheet* loadSpritesheet(const char* file);
+    private:
+        Game();
+        Spritesheet* loadSpritesheet(const char* file);
 
-	static Game * _instance;
-	GraphicalScene * _pScene;
-	std::map<const char *,Spritesheet *> _spritesheets;
-	Actions _actions;
-	ControllersManager _controllersManager;
+        static Game * _instance;
+        GraphicalScene * _pScene;
+        std::map<const char *,Spritesheet *> _spritesheets;
+        Actions _actions;
+        ControllersManager _controllersManager;
 };
 
 #endif // GAME_H

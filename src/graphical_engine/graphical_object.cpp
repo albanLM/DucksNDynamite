@@ -1,4 +1,4 @@
-#include "graphicalobject.h"
+#include "graphical_object.h"
 
 GraphicalObject::GraphicalObject(Spritesheet *spritesheet, Rectangle spriteRect, float sizeCoef,
                                  float x, float y, SDL_RendererFlip flip):
@@ -61,4 +61,9 @@ void GraphicalObject::setCoordinates(float x, float y)
 void GraphicalObject::setFlip(const SDL_RendererFlip &flip)
 {
 	_flip = flip;
+}
+
+void GraphicalObject::translate(float x, float y) {
+    _x += x;
+    _y += y;
 }
